@@ -1,23 +1,31 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Todo from './Todo'
+import Footer from './Footer'
+import TodoInput from './TodoInput'
+import TodoList from './TodoList'
+import manageTasks from '../context/taskReducer'
 
-const mockTodos = [
-  { id: '1', text: 'Aprender React', completed: false },
-  { id: '2', text: 'Aprender TypeScript', completed: true },
-  { id: '3', text: 'Aprender Vite', completed: false },
-]
+
 
 const Todos = () => {
+  const [tasks, taskDispatcher] = manageTasks()
+
+  useEffect(() => {
+    taskDispatcher({ type: 'init' })
+  })
+
+  const deleteTask = (id: number) => {
+    taskDispatcher({ type: 'delete', payload: {id} })
+  }
+
   return (
-    <div className='todos'>
-      <ul>
-        {
-          mockTodos.map((todo => {
-            return <Todo key={todo.id} todo={todo} />
-          }))
-        }
-      </ul>
-    </div>
+    <>
+      <div className='todos'>
+        <TodoInput />
+        <TodoList tasks={tasks} />
+        <Footer />
+      </div>
+    </>
   )
 }
 

@@ -39,3 +39,45 @@
 .read-the-docs {
   color: #888;
 }
+
+.todos {
+  background-color: white;
+  width: 500px;
+  height: auto;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.container_task_inout {
+  width: auto;
+}
+
+.task_input {
+  width: -webkit-fill-available;
+  height: 40px;
+  text-indent: 20px;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  /* border-top: 1px solid grey ; */
+  border-bottom: 1px solid rgba(225, 217, 217, 0.837) ;
+  text-align: left;
+  height: 40px;
+  font-size: x-large;
+}
+
+.todos_list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  text-indent: 20px;
+}
