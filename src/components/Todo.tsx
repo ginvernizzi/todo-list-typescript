@@ -1,16 +1,20 @@
 import React from 'react'
 import { Task } from '../type'
-import manageTasks from '../context/taskReducer'
 
 interface Prop {
   todo: Task,
-  updateTask: (id:number) => void
+  updateTask: (id:number) => void,
+  deleteTask: (id:number) => void
 }
 
-const Todo = ({ todo, updateTask }: Prop) => {
+const Todo = ({ todo, updateTask, deleteTask }: Prop) => {
 
   const onHandleUdpate = (id: number) => {
     updateTask(id)
+  }
+
+  const onDeleteTask = (id:number) => {
+    deleteTask(id)
   }
 
   return (
@@ -19,7 +23,7 @@ const Todo = ({ todo, updateTask }: Prop) => {
       <div>
         <input type="checkbox" placeholder='' onChange={() => onHandleUdpate(todo.id)} checked={todo.completed} />
       </div>
-      <button style={{ border: "1px solid red", padding: '2px', background: 'red', color: 'white' }}>delete</button>
+      <button onClick={() => onDeleteTask(todo.id)} style={{ border: "1px solid red", padding: '2px', background: 'red', color: 'white' }}>delete</button>
     </div>
   )
 }

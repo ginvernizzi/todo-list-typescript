@@ -19,6 +19,7 @@ const Todos = () => {
   }
 
   const deleteTask = (id: number) => {
+    console.log(id)
     taskDispatcher({ type: 'delete', payload: {id} })
   }
 
@@ -26,7 +27,7 @@ const Todos = () => {
     <>
       <div className='todos'>
         <TodoInput />
-        <TodoList tasks={tasks} updateTask={updateTask}/>
+        <TodoList tasks={tasks} updateTask={updateTask} deleteTask={deleteTask}/>
         <Footer />
       </div>
     </>

@@ -24,12 +24,10 @@ export const taskReducer = (state: Array<Task>, action: TaskAction) => {
         }
         return elemento;
       });
-      console.log(nuevoEstado)
       return nuevoEstado
     case "delete":
-      state.map((task) => {
-        return state.filter(task => task.id === action.payload.id)
-      })
+      console.log("delete", action.payload.id)
+      return state.filter(task => task.id !== action.payload.id)      
     default:
       return state
   }
