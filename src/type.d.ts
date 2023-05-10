@@ -22,4 +22,6 @@ export type TaskAction = {
   }
 }
 
+export type ShowTasks = 'All' | 'Active'  | 'Completed' 
+
 
