@@ -4,27 +4,20 @@ import manageTasks from '../context/taskReducer'
 
 interface Prop {
   todo: Task,
-  // deleteTodo: () => ()
+  updateTask: (id:number) => void
 }
 
-const Todo = ({ todo }: Prop) => {
-
-  const [, taskDispatcher] = manageTasks()
+const Todo = ({ todo, updateTask }: Prop) => {
 
   const onHandleUdpate = (id: number) => {
-    taskDispatcher({
-      type: "update",
-      payload: {
-        id: id
-      }
-    })
+    updateTask(id)
   }
 
   return (
     <div className='todo' style={{ display: 'flex', justifyContent: '' }}>
       <div style={todo.completed ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}> {todo.text}  </div>
       <div>
-        <input type="checkbox" placeholder='' onChange={() => onHandleUdpate(todo.id)} />
+        <input type="checkbox" placeholder='' onChange={() => onHandleUdpate(todo.id)} checked={todo.completed} />
       </div>
       <button style={{ border: "1px solid red", padding: '2px', background: 'red', color: 'white' }}>delete</button>
     </div>

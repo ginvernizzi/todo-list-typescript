@@ -9,18 +9,23 @@ const InitialState = [
 
 // const TaskContext = createContext([])
 
-const taskReducer = (state: Array<Task>, action: TaskAction) => {
-
+export const taskReducer = (state: Array<Task>, action: TaskAction) => {
+  console.log("state reducer", state)
   switch (action.type) {
     case "init":
+      console.log("init")
       return InitialState
     case "create":
       return [...state, action.payload]
     case "update":
-      console.log('caca');
-      return state.map((task) => {
-        return {...task, completed: true }
-      })
+      const nuevoEstado = state.map((elemento, index) => {
+        if (elemento.id === action.payload.id) {
+          return { ...elemento, completed: !elemento.completed };
+        }
+        return elemento;
+      });
+      console.log(nuevoEstado)
+      return nuevoEstado
     case "delete":
       state.map((task) => {
         return state.filter(task => task.id === action.payload.id)
@@ -31,6 +36,5 @@ const taskReducer = (state: Array<Task>, action: TaskAction) => {
 }
 
 const manageTasks = () => useReducer(taskReducer, InitialState)
-
 
 export default manageTasks
