@@ -26,13 +26,13 @@ export const taskReducer = (state: Array<Task>, action: TaskAction) => {
       });
       return nuevoEstado
     case "updateText":
-      console.log("tutu", action.payload.id, action.payload.text);
-      return state.map((elemento, index) => {
+      const nuevoState = state.map((elemento, index) => {
         if (elemento.id === action.payload.id) {
           return { ...elemento, text: action.payload.text };
         }
         return elemento;
       });
+      return nuevoState
     case "delete":
       console.log("delete", action.payload.id)
       return state.filter(task => task.id !== action.payload.id)

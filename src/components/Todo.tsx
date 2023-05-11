@@ -23,6 +23,10 @@ const Todo = ({ todo, updateTask, updateTaskText, deleteTask }: Prop) => {
     deleteTask(id)
   }
 
+  const onManageTextEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, completed: boolean) => {
+    !completed && setEditEnable(true)
+  }
+
   const onHandleEscapeEdit = (e: React.KeyboardEvent<HTMLDivElement>, id: number) => {
     console.log(e);
     if (e.key === 'Escape') {
@@ -36,15 +40,19 @@ const Todo = ({ todo, updateTask, updateTaskText, deleteTask }: Prop) => {
   }
 
   return (
-    <div className='todo' style={{ display: 'flex', justifyContent: '' }}>
-      <div onClick={(e) => setEditEnable(true)}
-            style={todo.completed ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}>
-        {editEnable ? <input onKeyUp={(e) => onHandleEscapeEdit(e, todo.id)} type="text" defaultValue={todo.text} /> : todo.text}
+    <div className='todo' style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{display: 'flex'}}>
+        <div onClick={(e) => onManageTextEdit(e, todo.completed)}
+          style={todo.completed ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}>
+          {editEnable ? <input onKeyUp={(e) => onHandleEscapeEdit(e, todo.id)} type="text" defaultValue={todo.text} /> : todo.text}
+        </div>
+        <div>
+          <input type="checkbox" placeholder='' onChange={() => onHandleUdpate(todo.id)} checked={todo.completed} />
+        </div>
       </div>
       <div>
-        <input type="checkbox" placeholder='' onChange={() => onHandleUdpate(todo.id)} checked={todo.completed} />
+        <button onClick={() => onDeleteTask(todo.id)} style={{ border: "1px solid red", padding: '5px', background: 'red', color: 'white' }}>delete</button>
       </div>
-      <button onClick={() => onDeleteTask(todo.id)} style={{ border: "1px solid red", padding: '2px', background: 'red', color: 'white' }}>delete</button>
     </div>
   )
 }
