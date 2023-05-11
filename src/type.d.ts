@@ -16,12 +16,20 @@ export type TaskAction = {
     id: number
   }
 } | {
+  type: 'updateText',
+  payload: {
+    id: number,
+    text: string
+  }
+} | {
   type: 'delete',
   payload: {
     id: number
   }
+} | {
+  type: 'deleteAllCompleted'
 }
 
-export type ShowTasks = 'All' | 'Active'  | 'Completed' 
+export type ShowTasks = 'All' | 'Active' | 'Completed'
 
 

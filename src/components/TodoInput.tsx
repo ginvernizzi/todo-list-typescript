@@ -16,7 +16,7 @@ const TodoInput = () => {
   }
 
   return (
-    <div className='container_task_input'>
+    <header className='container_task_input'>
       <div className=''>
         <input onKeyUp={(e) => onAceptTask(e)} className='task_input' type="text"
           name="task"
@@ -24,7 +24,7 @@ const TodoInput = () => {
           placeholder='Que quieres hacer?'
           onChange={(e) => onInsertTask(e)} />
       </div>
-    </div>
+    </header>
   )
 }
 

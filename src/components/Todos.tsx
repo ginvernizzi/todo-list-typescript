@@ -36,17 +36,31 @@ const Todos = () => {
     })
   }
 
+  const updateTaskText = (id:number, text:string) => {
+    taskDispatcher({
+      type: "updateText",
+      payload: {
+        id: id,
+        text: text
+      }
+    })
+  } 
+
   const deleteTask = (id: number) => {
     console.log(id)
     taskDispatcher({ type: 'delete', payload: { id } })
+  }
+
+  const deleteAllTasks = () => {
+    taskDispatcher({ type: 'deleteAllCompleted' })
   }
 
   return (
     <>
       <div className='todos'>
         <TodoInput />
-        <TodoList tasks={filter()} updateTask={updateTask} deleteTask={deleteTask} />
-        <Footer onSelectFilter={onSelectFilter} tasks={tasks}/>
+        <TodoList tasks={filter()} updateTask={updateTask} deleteTask={deleteTask} updateTaskText={updateTaskText} />
+        <Footer onSelectFilter={onSelectFilter} tasks={tasks} deleteAllTasks={deleteAllTasks}/>
       </div>
     </>
   )
