@@ -3,7 +3,11 @@ import Footer from './Footer'
 import TodoInput from './TodoInput'
 import TodoList from './TodoList'
 import manageTasks from '../context/taskReducer'
-import { ShowTasks } from '../type'
+import { ShowTasks, Task } from '../type'
+
+const newId = () => {
+  return Math.round(Math.random() * 1000)
+}
 
 const Todos = () => {
   const [tasks, taskDispatcher] = manageTasks()
@@ -55,10 +59,18 @@ const Todos = () => {
     taskDispatcher({ type: 'deleteAllCompleted' })
   }
 
+  const addTask = (text:string) => {
+    taskDispatcher({ type: 'create', payload: {
+      id: newId(), 
+      text: text, 
+      completed: false
+    }})
+  }
+
   return (
     <>
       <div className='todos'>
-        <TodoInput />
+        <TodoInput addTask={addTask} />
         <TodoList tasks={filter()} updateTask={updateTask} deleteTask={deleteTask} updateTaskText={updateTaskText} />
         <Footer onSelectFilter={onSelectFilter} tasks={tasks} deleteAllTasks={deleteAllTasks}/>
       </div>

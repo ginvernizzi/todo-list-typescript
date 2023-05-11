@@ -40,18 +40,16 @@ const Todo = ({ todo, updateTask, updateTaskText, deleteTask }: Prop) => {
   }
 
   return (
-    <div className='todo' style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <div style={{display: 'flex'}}>
-        <div onClick={(e) => onManageTextEdit(e, todo.completed)}
-          style={todo.completed ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}>
-          {editEnable ? <input onKeyUp={(e) => onHandleEscapeEdit(e, todo.id)} type="text" defaultValue={todo.text} /> : todo.text}
-        </div>
-        <div>
-          <input type="checkbox" placeholder='' onChange={() => onHandleUdpate(todo.id)} checked={todo.completed} />
-        </div>
+    <div className='todo'>
+      <div className='todo_item'>
+        <input type="checkbox" placeholder='' onChange={() => onHandleUdpate(todo.id)} checked={todo.completed} />
       </div>
-      <div>
-        <button onClick={() => onDeleteTask(todo.id)} style={{ border: "1px solid red", padding: '5px', background: 'red', color: 'white' }}>delete</button>
+      <div className='todo_item' onClick={(e) => onManageTextEdit(e, todo.completed)}
+        style={todo.completed ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}>
+        {editEnable ? <div> <input onKeyUp={(e) => onHandleEscapeEdit(e, todo.id)} type="text" defaultValue={todo.text} /></div> : <div>{todo.text}</div>}
+      </div>
+      <div className='todo_item'>
+        <button onClick={() => onDeleteTask(todo.id)} >delete</button>
       </div>
     </div>
   )

@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { Task } from '../type'
 
-const TodoInput = () => {
+interface Props {
+  addTask: (text:string) => void
+}
+
+const TodoInput = ({addTask}:Props) => {
   const [taskInput, setTaskInput] = useState('')
 
   const onInsertTask = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -10,7 +14,7 @@ const TodoInput = () => {
 
   const onAceptTask = (e:React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === 'Enter'){
-      console.log(taskInput);
+      addTask(taskInput)
       setTaskInput('')
     }
   }

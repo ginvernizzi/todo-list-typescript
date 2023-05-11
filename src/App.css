@@ -54,16 +54,24 @@
   width: -webkit-fill-available;
   height: 40px;
   text-indent: 20px;
+  color: yellow !important;
+  font-size: larger;
 }
 
 .todo {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  /* border-top: 1px solid grey ; */
   border-bottom: 1px solid rgba(225, 217, 217, 0.837) ;
-  text-align: left;
   height: 40px;
   font-size: x-large;
+}
+
+.todo_item button{
+  border: 1px solid red;
+  padding: 2px 4px; 
+  background: red;
+  color: white; 
 }
 
 .todos_list ul {
@@ -72,7 +80,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  text-indent: 20px;
+  /* text-indent: 20px; */
 }
 
 .footer {
@@ -80,13 +88,16 @@
   flex-direction: row;
   justify-content: space-evenly;
   height: 40px;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   /* gap: 10px; */
 }
 
 .footer button {
+  border-radius: 0px;
   display: flex;
-  /* border: 1px solid rgb(155, 109, 109); */
-  background-color: pink;
+  /* background-color: pink; */
+  align-items: center;
+  padding: 10px;
+  font-style: italic;
 }
