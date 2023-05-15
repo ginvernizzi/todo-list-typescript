@@ -15,10 +15,6 @@ const Todo = ({ todo, updateTask, updateTaskText, deleteTask }: Prop) => {
     updateTask(id)
   }
 
-  const onEditTextTask = (id: number, text: string) => {
-    // editTextTask(id, text)
-  }
-
   const onDeleteTask = (id: number) => {
     deleteTask(id)
   }
@@ -46,7 +42,7 @@ const Todo = ({ todo, updateTask, updateTaskText, deleteTask }: Prop) => {
       </div>
       <div className='todo_item' onClick={(e) => onManageTextEdit(e, todo.completed)}
         style={todo.completed ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}>
-        {editEnable ? <div> <input onKeyUp={(e) => onHandleEscapeEdit(e, todo.id)} type="text" defaultValue={todo.text} /></div> : <div>{todo.text}</div>}
+        {editEnable ? <div> <input onKeyUp={(e) => onHandleEscapeEdit(e, todo.id)} type="text" defaultValue={todo.title} /></div> : <div>{todo.title}</div>}
       </div>
       <div className='todo_item'>
         <button onClick={() => onDeleteTask(todo.id)} >delete</button>

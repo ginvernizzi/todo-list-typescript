@@ -1,48 +1,56 @@
 import { createContext, useReducer } from "react";
-import { Task, TaskAction } from "../type";
+import { StateTask, TaskAction } from "../type";
 
-const InitialState = [
-  { id: 1, text: 'Aprender React', completed: false },
-  { id: 2, text: 'Aprender TypeScript', completed: true },
-  { id: 3, text: 'Aprender Vite', completed: false },
-]
+const InitialState = {
+  tasks:
+    [
+      { id: 1, title: 'Aprender React', completed: false },
+      { id: 2, title: 'Aprender TypeScript', completed: true },
+      { id: 3, title: 'Aprender Vite', completed: false }
+    ],
+  async: false
+}
 
-// const TaskContext = createContext([])
+// {
+//   tasks
+//   async
+// }
 
-export const taskReducer = (state: Array<Task>, action: TaskAction) => {
-  console.log("state reducer", state)
+export const taskReducer = (state: StateTask, action: TaskAction): StateTask => {
   switch (action.type) {
     case "init":
-      console.log("init")
-      return InitialState
+      return { ...state, tasks: action.payload, async: false }
+
     case "create":
-      return [...state, action.payload]
+      return { ...state, tasks: state.tasks.concat(action.payload), async: true }
+
     case "update":
-      const nuevoEstado = state.map((elemento, index) => {
-        if (elemento.id === action.payload.id) {
-          return { ...elemento, completed: !elemento.completed };
-        }
-        return elemento;
+      const newTasks = state.tasks.map((elemento) => {
+        return elemento.id === action.payload.id ? { ...elemento, completed: !elemento.completed } : elemento;
       });
-      return nuevoEstado
+
+      return { ...state, tasks: newTasks, async: true }
+
     case "updateText":
-      const nuevoState = state.map((elemento, index) => {
-        if (elemento.id === action.payload.id) {
-          return { ...elemento, text: action.payload.text };
-        }
-        return elemento;
-      });
-      return nuevoState
+      const tareaActualizada = state.tasks.map((elemento, index) => {
+        return elemento.id === action.payload.id ? { ...elemento, title: action.payload.text } : elemento
+      })
+
+      return { ...state, tasks: tareaActualizada, async: true }
+
     case "delete":
-      console.log("delete", action.payload.id)
-      return state.filter(task => task.id !== action.payload.id)
+      const tareasNoEliminadas = state.tasks.filter(task => task.id !== action.payload.id)
+      return { ...state, tasks: tareasNoEliminadas, async: true }
+
     case "deleteAllCompleted":
-      return state.filter(task => task.completed !== true)
+      const tareasNoCompletadas = state.tasks.filter(task => task.completed !== true)
+      return { ...state, tasks: tareasNoCompletadas, async: true }
+
     default:
       return state
   }
 }
 
-const manageTasks = () => useReducer(taskReducer, InitialState)
+const manageTasks = () => useReducer(taskReducer, {tasks:[], async: false})
 
 export default manageTasks

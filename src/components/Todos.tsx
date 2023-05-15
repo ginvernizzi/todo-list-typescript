@@ -4,27 +4,35 @@ import TodoInput from './TodoInput'
 import TodoList from './TodoList'
 import manageTasks from '../context/taskReducer'
 import { ShowTasks, Task } from '../type'
+import { getAllTask, updateTasks } from '../services/tasks'
 
 const newId = () => {
   return Math.round(Math.random() * 1000)
 }
 
 const Todos = () => {
-  const [tasks, taskDispatcher] = manageTasks()
+  const [stateTasks, taskDispatcher] = manageTasks()
   const [categoryFilter, setCategoryFilter] = useState<ShowTasks>('All')
+
+  useEffect(() => {
+    stateTasks.async && updateTasks(stateTasks.tasks)
+  }, [stateTasks.tasks, stateTasks.async])
+
+  getAllTask(taskDispatcher)
 
   const filter = () => {
     switch (categoryFilter) {
       case 'All':
-        return tasks
+        return stateTasks.tasks
       case 'Active':
-        return tasks.filter(x => x.completed === false)
+        return stateTasks.tasks.filter(x => x.completed === false)
       case 'Completed':
-        return tasks.filter(x => x.completed === true)
+        return stateTasks.tasks.filter(x => x.completed === true)
       default:
-        return tasks;
+        return stateTasks.tasks;
     }
   }
+
 
   const onSelectFilter = (fitlerTerm:ShowTasks) => {
     setCategoryFilter(fitlerTerm)
@@ -62,7 +70,7 @@ const Todos = () => {
   const addTask = (text:string) => {
     taskDispatcher({ type: 'create', payload: {
       id: newId(), 
-      text: text, 
+      title: text, 
       completed: false
     }})
   }
@@ -72,7 +80,7 @@ const Todos = () => {
       <div className='todos'>
         <TodoInput addTask={addTask} />
         <TodoList tasks={filter()} updateTask={updateTask} deleteTask={deleteTask} updateTaskText={updateTaskText} />
-        <Footer onSelectFilter={onSelectFilter} tasks={tasks} deleteAllTasks={deleteAllTasks}/>
+        <Footer onSelectFilter={onSelectFilter} tasks={stateTasks.tasks} deleteAllTasks={deleteAllTasks}/>
       </div>
     </>
   )

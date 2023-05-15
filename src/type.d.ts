@@ -1,11 +1,17 @@
 export interface Task {
   id: number;
-  text: string;
+  title: string;
   completed: boolean;
 }
 
+export interface StateTask {
+  tasks: Array<Task>,
+  async: boolean
+} 
+
 export type TaskAction = {
-  type: 'init'
+  type: 'init',
+  payload: Array<Task>
 } |
 {
   type: 'create',
